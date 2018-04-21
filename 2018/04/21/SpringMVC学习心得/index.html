@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="引言在这里记录一下在初学SpringMVC中遇到的一些问题或编码习惯。强调一下，这主要是一些个人习惯，不是教程，更不适合初学者看。现在的新开始的网站基本都会前后分离，Web后台的开发重心基本都转向了API开发，所以我就在这方面死磕了2333 Controller类注解API控制器类的注解12345@Controller@RequestMapping(value = &quot;/api/main/sub&quot;,">
-<meta name="keywords" content="Java,SpringMVC,SSM">
+<meta name="keywords" content="Java,SSM,SpringMVC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC学习心得">
 <meta property="og:url" content="https://hexo.xinsane.com/2018/04/21/SpringMVC学习心得/index.html">
 <meta property="og:site_name" content="梦的天空之城">
 <meta property="og:description" content="引言在这里记录一下在初学SpringMVC中遇到的一些问题或编码习惯。强调一下，这主要是一些个人习惯，不是教程，更不适合初学者看。现在的新开始的网站基本都会前后分离，Web后台的开发重心基本都转向了API开发，所以我就在这方面死磕了2333 Controller类注解API控制器类的注解12345@Controller@RequestMapping(value = &quot;/api/main/sub&quot;,">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-21T09:15:01.272Z">
+<meta property="og:updated_time" content="2018-04-21T09:19:53.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC学习心得">
 <meta name="twitter:description" content="引言在这里记录一下在初学SpringMVC中遇到的一些问题或编码习惯。强调一下，这主要是一些个人习惯，不是教程，更不适合初学者看。现在的新开始的网站基本都会前后分离，Web后台的开发重心基本都转向了API开发，所以我就在这方面死磕了2333 Controller类注解API控制器类的注解12345@Controller@RequestMapping(value = &quot;/api/main/sub&quot;,">
@@ -441,10 +441,10 @@
       
         <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>在这里记录一下在初学SpringMVC中遇到的一些问题或编码习惯。<strong>强调一下，这主要是一些个人习惯，不是教程，更不适合初学者看</strong>。现在的新开始的网站基本都会前后分离，Web后台的开发重心基本都转向了API开发，所以我就在这方面死磕了2333</p>
 <h1 id="Controller类注解"><a href="#Controller类注解" class="headerlink" title="Controller类注解"></a>Controller类注解</h1><figure class="highlight java"><figcaption><span>API控制器类的注解</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/api/main/sub"</span>,</span><br><span class="line">        produces = &#123; <span class="string">"application/json;charset=UTF-8"</span> &#125;,</span><br><span class="line">        method = RequestMethod.POST)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br></pre></td></tr></table></figure>
-<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>用来说明这是一个控制器，需要在SpringMVC的配置文件中指定自动扫描<br>指定base-package之后，该包及下面的所有子孙包都会被自动扫描<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.xinsane.controller"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="RequestMapping-value"><a href="#RequestMapping-value" class="headerlink" title="RequestMapping.value"></a>RequestMapping.value</h2><p>指定该控制器的基本路径，我一般习惯以api开头，这样完整路径为：/api/{模块}/{控制器}/{方法}，没错，我可能ThinkPHP学傻了，但是不得不承认，这种设计方式在很多时候还是很不错的</p>
-<h2 id="RequestMapping-produces"><a href="#RequestMapping-produces" class="headerlink" title="RequestMapping.produces"></a>RequestMapping.produces</h2><p>这个属性是用来指定返回数据的格式的，开发API的时候一般是返回JSON，所以这里指定为”application/json;charset=UTF-8”</p>
-<h2 id="RequestMapping-method"><a href="#RequestMapping-method" class="headerlink" title="RequestMapping.method"></a>RequestMapping.method</h2><p>我习惯于用POST来请求所有API，所以这里设置成了POST</p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h2><p>用来说明这是一个控制器，需要在SpringMVC的配置文件中指定自动扫描<br>指定base-package之后，该包及下面的所有子孙包都会被自动扫描<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.xinsane.controller"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="RequestMapping-value"><a href="#RequestMapping-value" class="headerlink" title="@RequestMapping.value"></a>@RequestMapping.value</h2><p>指定该控制器的基本路径，我一般习惯以api开头，这样完整路径为：/api/{模块}/{控制器}/{方法}，没错，我可能ThinkPHP学傻了，但是不得不承认，这种设计方式在很多时候还是很不错的</p>
+<h2 id="RequestMapping-produces"><a href="#RequestMapping-produces" class="headerlink" title="@RequestMapping.produces"></a>@RequestMapping.produces</h2><p>这个属性是用来指定返回数据的格式的，开发API的时候一般是返回JSON，所以这里指定为”application/json;charset=UTF-8”</p>
+<h2 id="RequestMapping-method"><a href="#RequestMapping-method" class="headerlink" title="@RequestMapping.method"></a>@RequestMapping.method</h2><p>我习惯于用POST来请求所有API，所以这里设置成了POST</p>
 <h1 id="RequestBody的使用和请求数据接收器"><a href="#RequestBody的使用和请求数据接收器" class="headerlink" title="@RequestBody的使用和请求数据接收器"></a>@RequestBody的使用和请求数据接收器</h1><p>@RequestBody会自动解析请求体的Body内容到指定的变量，这里是一个例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestBody RequestData data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (data.code == <span class="keyword">null</span> || data.code.isEmpty())</span><br><span class="line">        <span class="keyword">return</span> error(<span class="number">101</span>, <span class="string">"缺少参数"</span>);</span><br><span class="line">    TokenTransfer transfer = userService.loginByWxCode(data.code);</span><br><span class="line">    <span class="keyword">if</span> (transfer.getError() != <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> error(transfer.getError(), transfer.getMsg());</span><br><span class="line">    JsonObject obj = <span class="keyword">new</span> JsonObject();</span><br><span class="line">    obj.addProperty(<span class="string">"error"</span>, <span class="number">0</span>);</span><br><span class="line">    obj.addProperty(<span class="string">"token"</span>, transfer.getToken());</span><br><span class="line">    <span class="keyword">return</span> obj.toString();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestData</span> <span class="keyword">extends</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    String code; <span class="comment">// 小程序传来的登陆code</span></span><br><span class="line">    String token; <span class="comment">// 小程序传来的用户token，用于识别用户</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCode</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.token = token;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在这段代码中，User是一个pojo实体类，我基于它派生了一个请求数据类，并给它加上@RequestBody注解，前端传来的数据会解析到这个类中。</p>
 <p>一般在一个控制器中，像新增数据、修改数据时一般都会用到对应的实体类中的字段，同时还会有其他字段，比如识别用户的token，小程序登陆是要用的code等，所以基于对应实体类派生一个专用的数据接收器还是挺妥的。这样做还有一个好处是，因为是基于pojo派生的，可以直接传递这个派生类到Service层，然后Service用基类pojo类接收（为什么不直接接收派生类？因为这样会破坏不同层之间的独立性，不便于维护，详见下一节）。</p>
 <p>值得一提的是，在同一个控制器中，虽然有很多方法，但不必为每个方法单独派生数据接收器，实体类中有的字段可以直接用，没有的字段全部写入派生类中，SpringMVC不会因为一个你有的属性前端没传而产生不良后果。</p>
@@ -477,9 +477,9 @@
           
             <a href="/tags/Java/" rel="tag"># Java</a>
           
-            <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
-          
             <a href="/tags/SSM/" rel="tag"># SSM</a>
+          
+            <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
           
         </div>
       
@@ -597,10 +597,6 @@
                     
                       
                     
-                      
-                    
-                      
-                    
                     <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
@@ -613,8 +609,6 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
-                    
-                      
                     
                       
                     
@@ -674,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Controller类注解"><span class="nav-number">2.</span> <span class="nav-text">Controller类注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller"><span class="nav-number">2.1.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestMapping-value"><span class="nav-number">2.2.</span> <span class="nav-text">RequestMapping.value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestMapping-produces"><span class="nav-number">2.3.</span> <span class="nav-text">RequestMapping.produces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestMapping-method"><span class="nav-number">2.4.</span> <span class="nav-text">RequestMapping.method</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RequestBody的使用和请求数据接收器"><span class="nav-number">3.</span> <span class="nav-text">@RequestBody的使用和请求数据接收器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Controller层与Service层之间的数据传输"><span class="nav-number">4.</span> <span class="nav-text">Controller层与Service层之间的数据传输</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller-gt-Service"><span class="nav-number">4.1.</span> <span class="nav-text">Controller -&gt; Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-gt-Controller"><span class="nav-number">4.2.</span> <span class="nav-text">Service -&gt; Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入Transfer"><span class="nav-number">4.3.</span> <span class="nav-text">引入Transfer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Controller类注解"><span class="nav-number">2.</span> <span class="nav-text">Controller类注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller"><span class="nav-number">2.1.</span> <span class="nav-text">@Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestMapping-value"><span class="nav-number">2.2.</span> <span class="nav-text">@RequestMapping.value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestMapping-produces"><span class="nav-number">2.3.</span> <span class="nav-text">@RequestMapping.produces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestMapping-method"><span class="nav-number">2.4.</span> <span class="nav-text">@RequestMapping.method</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RequestBody的使用和请求数据接收器"><span class="nav-number">3.</span> <span class="nav-text">@RequestBody的使用和请求数据接收器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Controller层与Service层之间的数据传输"><span class="nav-number">4.</span> <span class="nav-text">Controller层与Service层之间的数据传输</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller-gt-Service"><span class="nav-number">4.1.</span> <span class="nav-text">Controller -&gt; Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-gt-Controller"><span class="nav-number">4.2.</span> <span class="nav-text">Service -&gt; Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入Transfer"><span class="nav-number">4.3.</span> <span class="nav-text">引入Transfer</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -913,11 +907,11 @@
             counter.fetchWhenSave(true);
             counter.increment("time");
             
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
             counter.save(null, {
               success: function(counter) {
-                
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
                 
               },
               error: function(counter, error) {
