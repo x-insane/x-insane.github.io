@@ -99,23 +99,25 @@
 
 
 
-  <meta name="description" content="走自己的路，我无所谓">
-<meta property="og:type" content="website">
-<meta property="og:title" content="梦的天空之城">
-<meta property="og:url" content="https://hexo.xinsane.com/index.html">
+  <meta name="description" content="引言树莓派入手很久了，一直搁置在那也没怎么用，最近突发奇想就拿来重新刷了系统，遇到了很多问题，故简单地记录一下。 安装系统本次选择了官方系统的Lite版，基于Debian，我使用的版本是2018年4月18日更新的，其他版本其实应该都大同小异，但据了解Lite版和Desktop版差别挺大的。还是给个传送门吧。刷入系统我选择的是官方推荐的ETCher，界面十分简约，功能也十分简约，就是专门用来干这个的">
+<meta name="keywords" content="树莓派,Debian">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派的那些事">
+<meta property="og:url" content="https://hexo.xinsane.com/2018/04/25/树莓派的那些事/index.html">
 <meta property="og:site_name" content="梦的天空之城">
-<meta property="og:description" content="走自己的路，我无所谓">
+<meta property="og:description" content="引言树莓派入手很久了，一直搁置在那也没怎么用，最近突发奇想就拿来重新刷了系统，遇到了很多问题，故简单地记录一下。 安装系统本次选择了官方系统的Lite版，基于Debian，我使用的版本是2018年4月18日更新的，其他版本其实应该都大同小异，但据了解Lite版和Desktop版差别挺大的。还是给个传送门吧。刷入系统我选择的是官方推荐的ETCher，界面十分简约，功能也十分简约，就是专门用来干这个的">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-25T15:05:33.609Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦的天空之城">
-<meta name="twitter:description" content="走自己的路，我无所谓">
+<meta name="twitter:title" content="树莓派的那些事">
+<meta name="twitter:description" content="引言树莓派入手很久了，一直搁置在那也没怎么用，最近突发奇想就拿来重新刷了系统，遇到了很多问题，故简单地记录一下。 安装系统本次选择了官方系统的Lite版，基于Debian，我使用的版本是2018年4月18日更新的，其他版本其实应该都大同小异，但据了解Lite版和Desktop版差别挺大的。还是给个传送门吧。刷入系统我选择的是官方推荐的ETCher，界面十分简约，功能也十分简约，就是专门用来干这个的">
 
 
 
 
 
 
-  <link rel="canonical" href="https://hexo.xinsane.com/"/>
+  <link rel="canonical" href="https://hexo.xinsane.com/2018/04/25/树莓派的那些事/"/>
 
 
 
@@ -125,7 +127,7 @@
   };
 </script>
 
-  <title>梦的天空之城</title>
+  <title>树莓派的那些事 | 梦的天空之城</title>
   
 
 
@@ -172,8 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -312,9 +313,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -346,9 +347,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/25/树莓派的那些事/" itemprop="url">树莓派的那些事</a></h1>
+          <h1 class="post-title" itemprop="name headline">树莓派的那些事</h1>
         
 
         <div class="post-meta">
@@ -426,9 +425,7 @@
       
 
       
-        
-          
-            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>树莓派入手很久了，一直搁置在那也没怎么用，最近突发奇想就拿来重新刷了系统，遇到了很多问题，故简单地记录一下。</p>
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>树莓派入手很久了，一直搁置在那也没怎么用，最近突发奇想就拿来重新刷了系统，遇到了很多问题，故简单地记录一下。</p>
 <h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>本次选择了官方系统的Lite版，基于Debian，我使用的版本是2018年4月18日更新的，其他版本其实应该都大同小异，但据了解Lite版和Desktop版差别挺大的。<a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">还是给个传送门吧</a>。刷入系统我选择的是官方推荐的ETCher，界面十分简约，功能也十分简约，就是专门用来干这个的，当然其他的刷入工具也是可以的。</p>
 <h2 id="开启ssh"><a href="#开启ssh" class="headerlink" title="开启ssh"></a>开启ssh</h2><p>其实这个系统默认就是有安装好ssh，只是默认没有开启而已。<br>启动ssh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/ssh start</span><br></pre></td></tr></table></figure></p>
 <p>或者配置开机自启后再启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable ssh</span><br><span class="line">sudo systemctl start ssh</span><br></pre></td></tr></table></figure></p>
@@ -462,8 +459,6 @@
 <h2 id="让-shell-界面有颜色"><a href="#让-shell-界面有颜色" class="headerlink" title="让 shell 界面有颜色"></a>让 shell 界面有颜色</h2><p>pi用户的shell界面默认是有颜色的，但是root用户默认没有，只要把pi用户的.bashrc文件中对应的部分复制到root用户的.bashrc中就可以达到目的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">case &quot;$TERM&quot; in</span><br><span class="line">    xterm-color|*-256color) color_prompt=yes;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">force_color_prompt=yes</span><br><span class="line"></span><br><span class="line">if [ -n &quot;$force_color_prompt&quot; ]; then</span><br><span class="line">    if [ -x /usr/bin/tput ] &amp;&amp; tput setaf 1 &gt;&amp;/dev/null; then</span><br><span class="line">	color_prompt=yes</span><br><span class="line">    else</span><br><span class="line">	color_prompt=</span><br><span class="line">    fi</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ &quot;$color_prompt&quot; = yes ]; then</span><br><span class="line">    PS1=&apos;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\] &apos;</span><br><span class="line">else</span><br><span class="line">    PS1=&apos;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &apos;</span><br><span class="line">fi</span><br><span class="line">unset color_prompt force_color_prompt</span><br><span class="line"></span><br><span class="line">case &quot;$TERM&quot; in</span><br><span class="line">xterm*|rxvt*)</span><br><span class="line">    PS1=&quot;\[\e]0;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h: \w\a\]$PS1&quot;</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">if [ -x /usr/bin/dircolors ]; then</span><br><span class="line">    test -r ~/.dircolors &amp;&amp; eval &quot;$(dircolors -b ~/.dircolors)&quot; || eval &quot;$(dircolors -b)&quot;</span><br><span class="line">    alias ls=&apos;ls --color=auto&apos;</span><br><span class="line">    alias grep=&apos;grep --color=auto&apos;</span><br><span class="line">    alias fgrep=&apos;fgrep --color=auto&apos;</span><br><span class="line">    alias egrep=&apos;egrep --color=auto&apos;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">alias ll=&apos;ls -al&apos;</span><br></pre></td></tr></table></figure></p>
 <p>最后一句 alias 是把 ll 变成 ls -al 的别名，方便查看文件</p>
 
-          
-        
       
     </div>
 
@@ -481,361 +476,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hexo.xinsane.com/2018/04/21/SpringMVC学习心得/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xinsane">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="梦的天空之城">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/21/SpringMVC学习心得/" itemprop="url">SpringMVC学习心得</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T15:36:31+08:00">2018-04-21</time>
-            
-
-            
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/SSM/" itemprop="url" rel="index"><span itemprop="name">SSM</span></a></span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/SSM/SpringMVC/" itemprop="url" rel="index"><span itemprop="name">SpringMVC</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
           
-
+            <a href="/tags/Debian/" rel="tag"># Debian</a>
           
-            
-          
-
-          
-          
-             <span id="/2018/04/21/SpringMVC学习心得/" class="leancloud_visitors" data-flag-title="SpringMVC学习心得">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>在这里记录一下在初学SpringMVC中遇到的一些问题或编码习惯。<strong>强调一下，这主要是一些个人习惯，不是教程，更不适合初学者看</strong>。现在的新开始的网站基本都会前后分离，Web后台的开发重心基本都转向了API开发，所以我就在这方面死磕了2333</p>
-<h1 id="Controller类注解"><a href="#Controller类注解" class="headerlink" title="Controller类注解"></a>Controller类注解</h1><figure class="highlight java"><figcaption><span>API控制器类的注解</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/api/main/sub"</span>,</span><br><span class="line">        produces = &#123; <span class="string">"application/json;charset=UTF-8"</span> &#125;,</span><br><span class="line">        method = RequestMethod.POST)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br></pre></td></tr></table></figure>
-<h2 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h2><p>用来说明这是一个控制器，需要在SpringMVC的配置文件中指定自动扫描<br>指定base-package之后，该包及下面的所有子孙包都会被自动扫描<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.xinsane.controller"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="RequestMapping-value"><a href="#RequestMapping-value" class="headerlink" title="@RequestMapping.value"></a>@RequestMapping.value</h2><p>指定该控制器的基本路径，我一般习惯以api开头，这样完整路径为：/api/{模块}/{控制器}/{方法}，没错，我可能ThinkPHP学傻了，但是不得不承认，这种设计方式在很多时候还是很不错的</p>
-<h2 id="RequestMapping-produces"><a href="#RequestMapping-produces" class="headerlink" title="@RequestMapping.produces"></a>@RequestMapping.produces</h2><p>这个属性是用来指定返回数据的格式的，开发API的时候一般是返回JSON，所以这里指定为”application/json;charset=UTF-8”</p>
-<h2 id="RequestMapping-method"><a href="#RequestMapping-method" class="headerlink" title="@RequestMapping.method"></a>@RequestMapping.method</h2><p>我习惯于用POST来请求所有API，所以这里设置成了POST</p>
-<h1 id="RequestBody的使用和请求数据接收器"><a href="#RequestBody的使用和请求数据接收器" class="headerlink" title="@RequestBody的使用和请求数据接收器"></a>@RequestBody的使用和请求数据接收器</h1><p>@RequestBody会自动解析请求体的Body内容到指定的变量，这里是一个例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestBody RequestData data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (data.code == <span class="keyword">null</span> || data.code.isEmpty())</span><br><span class="line">        <span class="keyword">return</span> error(<span class="number">101</span>, <span class="string">"缺少参数"</span>);</span><br><span class="line">    TokenTransfer transfer = userService.loginByWxCode(data.code);</span><br><span class="line">    <span class="keyword">if</span> (transfer.getError() != <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> error(transfer.getError(), transfer.getMsg());</span><br><span class="line">    JsonObject obj = <span class="keyword">new</span> JsonObject();</span><br><span class="line">    obj.addProperty(<span class="string">"error"</span>, <span class="number">0</span>);</span><br><span class="line">    obj.addProperty(<span class="string">"token"</span>, transfer.getToken());</span><br><span class="line">    <span class="keyword">return</span> obj.toString();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestData</span> <span class="keyword">extends</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    String code; <span class="comment">// 小程序传来的登陆code</span></span><br><span class="line">    String token; <span class="comment">// 小程序传来的用户token，用于识别用户</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCode</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.token = token;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在这段代码中，User是一个pojo实体类，我基于它派生了一个请求数据类，并给它加上@RequestBody注解，前端传来的数据会解析到这个类中。</p>
-<p>一般在一个控制器中，像新增数据、修改数据时一般都会用到对应的实体类中的字段，同时还会有其他字段，比如识别用户的token，小程序登陆是要用的code等，所以基于对应实体类派生一个专用的数据接收器还是挺妥的。这样做还有一个好处是，因为是基于pojo派生的，可以直接传递这个派生类到Service层，然后Service用基类pojo类接收（为什么不直接接收派生类？因为这样会破坏不同层之间的独立性，不便于维护，详见下一节）。</p>
-<p>值得一提的是，在同一个控制器中，虽然有很多方法，但不必为每个方法单独派生数据接收器，实体类中有的字段可以直接用，没有的字段全部写入派生类中，SpringMVC不会因为一个你有的属性前端没传而产生不良后果。</p>
-<p><strong>这里我使用了一个名词：数据接收器，这不是专业说法，仅仅是为了叙述方便引入的</strong></p>
-<h1 id="Controller层与Service层之间的数据传输"><a href="#Controller层与Service层之间的数据传输" class="headerlink" title="Controller层与Service层之间的数据传输"></a>Controller层与Service层之间的数据传输</h1><p><strong>注：这里只讨论通过方法的参数列表和返回值来传递数据</strong></p>
-<p>在传输数据方面，我习惯遵循一个原则：<strong>尽可能降低不同层之间的耦合程度</strong>。怎么说呢，举个例子，上一节创建的数据接收器是一个控制器的内部类，虽然只要声明为public也是可以在Service层引用的，但是一旦这么做了，对应的Controller和Service的耦合程度就会大大提高，设想如果另一个控制器想要调用同一个Service方法，还得找一个不相关的Controller下面的内部类，喵喵喵？？？</p>
-<h2 id="Controller-gt-Service"><a href="#Controller-gt-Service" class="headerlink" title="Controller -&gt; Service"></a>Controller -&gt; Service</h2><p>从Controller传数据到Service其实很容易，因为Controller调用的Service的方法，需要多少参数直接写在参数列表就好了。这里有一个Service方法设计的基本原则：<strong>方法参数不宜过长</strong>。很容易理解，如果Service提供一个有十几个甚至几十个参数的方法，你能记住参数的含义和顺序吗？网上大多推荐用一个包装类，但其实大多数情况下只需要一个对应实体类和其他的少数参数就足够了。上一节基于实体类派生了一个数据接收器来接收前端数据，在这里正好用上，把数据接收器直接传入Service，在Service用基类接收，然后其他参数以参数列表传入。<strong>如果遇到除了实体类还有一大堆参数的，就要考虑提取一个公用包装器了</strong>，这种情况我暂时还没遇到，不再赘述。</p>
-<h2 id="Service-gt-Controller"><a href="#Service-gt-Controller" class="headerlink" title="Service -&gt; Controller"></a>Service -&gt; Controller</h2><p>但是从Service返回数据就不那么方便了，如果Service要返回的东西很简单，简单到可以用一个基本类型或公用实体来表示的话，那没什么可说的，直接返回就好了。但如果要返回很复杂的东西，就不好办了，一方面Java中方法只能返回一个值，另一方面又不能让不同层之间耦合太过于严重。其实说难也不难解决，前面Controller传数据给Service时，不能传递自己类下面的内部类给Service，是因为一个Service可能会被多个Controller调用，但细细来考虑Controller和Service之间的关系，会发现总是由Service来提供服务，然后Controller来调用，我们也是一直这样做的，不可能出现Service调用Controller的情况。既然如此，在Controller使用Service的服务时，返回一个对应Service的专用返回数据包装器是合理的，“你要使用我提供的服务，就得遵守我的规则”。</p>
-<h2 id="引入Transfer"><a href="#引入Transfer" class="headerlink" title="引入Transfer"></a>引入Transfer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本接口，大多数情况下Controller只需要知道Service执行的有没有错误，有的话错误代号和错误信息是什么</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Transfer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getError</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">getMsg</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基本实现</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseTransfer</span> <span class="keyword">implements</span> <span class="title">Transfer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> error = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> error;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> BaseTransfer <span class="title">setError</span><span class="params">(<span class="keyword">int</span> error)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.error = error;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> BaseTransfer <span class="title">setMsg</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.msg = msg;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果还需要更多的信息，就需要自定义一个类来实现基本接口了</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenTransfer</span> <span class="keyword">implements</span> <span class="title">Transfer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> error = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> String token;</span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> error;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TokenTransfer <span class="title">setError</span><span class="params">(<span class="keyword">int</span> error)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.error = error;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> token;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TokenTransfer <span class="title">setToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.token = token;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMsg</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TokenTransfer <span class="title">setMsg</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.msg = msg;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>至此，Controller与Service两层之间的数据传输问题算是解决了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hexo.xinsane.com/2018/04/21/Spring+SpringMVC+Mybatis学习之路/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xinsane">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="梦的天空之城">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/21/Spring+SpringMVC+Mybatis学习之路/" itemprop="url">Spring+SpringMVC+Mybatis学习之路</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T14:51:40+08:00">2018-04-21</time>
+              <a href="/2018/04/21/SpringMVC学习心得/" rel="next" title="SpringMVC学习心得">
+                <i class="fa fa-chevron-left"></i> SpringMVC学习心得
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/SSM/" itemprop="url" rel="index"><span itemprop="name">SSM</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/04/21/Spring+SpringMVC+Mybatis学习之路/" class="leancloud_visitors" data-flag-title="Spring+SpringMVC+Mybatis学习之路">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p><strong><center>这篇文章仅做学习过程的记录，不涉及技术问题</center></strong></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间确定了走JavaWeb方向，所以在了解过Servlet和JSP之后便义无反顾的投入到了SSM三大框架的学习之中。在学习的过程中碰到了很多问题，而且很多很杂很乱，于是想写点什么来记录一下。这是我的第一篇技术博客，算是一次艰难的尝试吧2333</p>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>三大框架我是从视频开始入手学的。其实以前我比较反对看视频学习，因为<strong>视频学习的周期比较长，而且很容易形成一种跟视频中类似的思维定式，视频里不规范、做的不好的地方很难察觉，自己在潜移默化中就跟着形成了同样的问题</strong>。这一次之所以选择看视频是因为实在是没有合适的学习资源，以前我一般通过看书来学习新东西比较多，但是这三大框架的更新速度实在过快，英文版图书没有查过，但是合适的中文书实在是没找到，基本都是很久远年代的版本，虽然网上说大体架构差不多，但我还是觉得这样会遇到太多问题。于是最终选择了前两年发布的一套视频教程来作为入门学习。</p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>在看视频的同时，我一边跟着视频写一些小测试，一边策划着用新学的框架写点什么。在把视频看完之后，便迫不及待的开始用它们来做一个当前的网站后台任务。看视频的时候觉得好像是这么回事，但是真正自己写的时候就完全不是那么回事了，各种问题，各种冗余，各种不爽，哎呀好气啊，怎么会这样呢？？？</p>
-<p>心平气和真的很重要，当我终于静下心来的时候，已经浪费了很多时间了，我才意识到，学习得有一个过程，不能一蹴而就。我也想过一上来就拿新学的东西做复杂的项目是不是有点不妥，但是我习惯于在实践中学习，一些很枯燥的东西，实践一下就能心中有数，所以我并没有放弃，那就只能一点一点的排查错误，<strong>最终找到了我已开始忽略但是十分十分重要的东西，那就是官方文档。</strong>为什么一开始不从官方文档看起？一方面是因为我英文不好，看着很吃力，但更重要的是我对这几个框架一点都不熟悉，甚至都不知道它们是用来干嘛的，这种情况下，看官方文档只会一头雾水。当我从视频中了解了它们的基本知识和架构了之后，官方文档就显得十分重要了。<strong>一个框架往往是十分庞大的，选择其中的一小部分便可以完成任务，所以跟着别人的脚步只能学到他当时用到的东西</strong>，而且框架更新也可能很快，这个时候<strong>看官方文档能对框架的一些特性进行比较全面的了解</strong>，不用每个特性都去实践，但是看过之后心中会有数，很多时候茫然不是不知道该怎么做，而是不知道能做什么。</p>
-<h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><p>在实践中遇到了很多问题，很多问题当时解决之后不长的一段时间就忘了，想重新去看的时候又不知道在什么地方了，才促使我写点东西来记录一下。当然这篇文章只是一个引子，具体内容还得慢慢写。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -845,14 +517,19 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -873,8 +550,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -979,6 +665,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装系统"><span class="nav-number">2.</span> <span class="nav-text">安装系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启ssh"><span class="nav-number">3.</span> <span class="nav-text">开启ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止密码登陆ssh"><span class="nav-number">3.1.</span> <span class="nav-text">禁止密码登陆ssh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换源-or-代理？"><span class="nav-number">4.</span> <span class="nav-text">换源 or 代理？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-shadowsocks-libev-privoxy-实现自由命令行代理"><span class="nav-number">4.1.</span> <span class="nav-text">使用 shadowsocks-libev + privoxy 实现自由命令行代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-shadowsocks-libev"><span class="nav-number">4.1.1.</span> <span class="nav-text">安装 shadowsocks-libev</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置登陆时自动启动"><span class="nav-number">4.1.2.</span> <span class="nav-text">配置登陆时自动启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-privoxy"><span class="nav-number">4.1.3.</span> <span class="nav-text">安装 privoxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-privoxy-全局代理"><span class="nav-number">4.1.4.</span> <span class="nav-text">配置 privoxy 全局代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写-proxy-脚本实现自由代理"><span class="nav-number">4.1.5.</span> <span class="nav-text">编写 proxy 脚本实现自由代理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改默认交换文件的大小"><span class="nav-number">5.</span> <span class="nav-text">修改默认交换文件的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让-shell-界面有颜色"><span class="nav-number">6.</span> <span class="nav-text">让 shell 界面有颜色</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1106,6 +808,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
 
   
 
