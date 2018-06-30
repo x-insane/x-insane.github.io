@@ -99,25 +99,24 @@
 
 
 
-  <meta name="description" content="这篇文章仅做学习过程的记录，不涉及技术问题 引言前段时间确定了走JavaWeb方向，所以在了解过Servlet和JSP之后便义无反顾的投入到了SSM三大框架的学习之中。在学习的过程中碰到了很多问题，而且很多很杂很乱，于是想写点什么来记录一下。这是我的第一篇技术博客，算是一次艰难的尝试吧2333 入门三大框架我是从视频开始入手学的。其实以前我比较反对看视频学习，因为视频学习的周期比较长，而且很容易形">
-<meta name="keywords" content="Java,SSM,JavaWeb">
+  <meta name="description" content="Adapter中的onCreateViewHolder和onBindViewHolder在实现Adapter的时候，至少需要重写三个方法：getItemCount、onCreateViewHolder和onBindViewHolder，getItemCount一般是返回数据表的长度，比较简单，但是onCreateViewHolder和onBindViewHolder中遇到的坑比较多。 ViewHo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring+SpringMVC+Mybatis学习之路">
-<meta property="og:url" content="https://hexo.xinsane.com/2018/04/21/Spring+SpringMVC+Mybatis学习之路/index.html">
+<meta property="og:title" content="RecyclerView探幽 - Adapter、ViewHolder、ItemList">
+<meta property="og:url" content="https://hexo.xinsane.com/2018/05/12/RecyclerView探幽 - Adapter、ViewHolder、ItemList/index.html">
 <meta property="og:site_name" content="梦的天空之城">
-<meta property="og:description" content="这篇文章仅做学习过程的记录，不涉及技术问题 引言前段时间确定了走JavaWeb方向，所以在了解过Servlet和JSP之后便义无反顾的投入到了SSM三大框架的学习之中。在学习的过程中碰到了很多问题，而且很多很杂很乱，于是想写点什么来记录一下。这是我的第一篇技术博客，算是一次艰难的尝试吧2333 入门三大框架我是从视频开始入手学的。其实以前我比较反对看视频学习，因为视频学习的周期比较长，而且很容易形">
+<meta property="og:description" content="Adapter中的onCreateViewHolder和onBindViewHolder在实现Adapter的时候，至少需要重写三个方法：getItemCount、onCreateViewHolder和onBindViewHolder，getItemCount一般是返回数据表的长度，比较简单，但是onCreateViewHolder和onBindViewHolder中遇到的坑比较多。 ViewHo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-21T07:35:58.764Z">
+<meta property="og:updated_time" content="2018-06-30T18:34:59.637Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring+SpringMVC+Mybatis学习之路">
-<meta name="twitter:description" content="这篇文章仅做学习过程的记录，不涉及技术问题 引言前段时间确定了走JavaWeb方向，所以在了解过Servlet和JSP之后便义无反顾的投入到了SSM三大框架的学习之中。在学习的过程中碰到了很多问题，而且很多很杂很乱，于是想写点什么来记录一下。这是我的第一篇技术博客，算是一次艰难的尝试吧2333 入门三大框架我是从视频开始入手学的。其实以前我比较反对看视频学习，因为视频学习的周期比较长，而且很容易形">
+<meta name="twitter:title" content="RecyclerView探幽 - Adapter、ViewHolder、ItemList">
+<meta name="twitter:description" content="Adapter中的onCreateViewHolder和onBindViewHolder在实现Adapter的时候，至少需要重写三个方法：getItemCount、onCreateViewHolder和onBindViewHolder，getItemCount一般是返回数据表的长度，比较简单，但是onCreateViewHolder和onBindViewHolder中遇到的坑比较多。 ViewHo">
 
 
 
 
 
 
-  <link rel="canonical" href="https://hexo.xinsane.com/2018/04/21/Spring+SpringMVC+Mybatis学习之路/"/>
+  <link rel="canonical" href="https://hexo.xinsane.com/2018/05/12/RecyclerView探幽 - Adapter、ViewHolder、ItemList/"/>
 
 
 
@@ -127,7 +126,7 @@
   };
 </script>
 
-  <title>Spring+SpringMVC+Mybatis学习之路 | 梦的天空之城</title>
+  <title>RecyclerView探幽 - Adapter、ViewHolder、ItemList | 梦的天空之城</title>
   
 
 
@@ -330,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hexo.xinsane.com/2018/04/21/Spring+SpringMVC+Mybatis学习之路/">
+    <link itemprop="mainEntityOfPage" href="https://hexo.xinsane.com/2018/05/12/RecyclerView探幽 - Adapter、ViewHolder、ItemList/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xinsane">
@@ -347,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spring+SpringMVC+Mybatis学习之路</h1>
+          <h1 class="post-title" itemprop="name headline">RecyclerView探幽 - Adapter、ViewHolder、ItemList</h1>
         
 
         <div class="post-meta">
@@ -359,7 +358,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T14:51:40+08:00">2018-04-21</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T15:21:22+08:00">2018-05-12</time>
             
 
             
@@ -369,31 +368,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/SSM/" itemprop="url" rel="index"><span itemprop="name">SSM</span></a></span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -401,7 +375,7 @@
 
           
           
-             <span id="/2018/04/21/Spring+SpringMVC+Mybatis学习之路/" class="leancloud_visitors" data-flag-title="Spring+SpringMVC+Mybatis学习之路">
+             <span id="/2018/05/12/RecyclerView探幽 - Adapter、ViewHolder、ItemList/" class="leancloud_visitors" data-flag-title="RecyclerView探幽 - Adapter、ViewHolder、ItemList">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -432,12 +406,11 @@
       
 
       
-        <p><strong><center>这篇文章仅做学习过程的记录，不涉及技术问题</center></strong></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前段时间确定了走JavaWeb方向，所以在了解过Servlet和JSP之后便义无反顾的投入到了SSM三大框架的学习之中。在学习的过程中碰到了很多问题，而且很多很杂很乱，于是想写点什么来记录一下。这是我的第一篇技术博客，算是一次艰难的尝试吧2333</p>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>三大框架我是从视频开始入手学的。其实以前我比较反对看视频学习，因为<strong>视频学习的周期比较长，而且很容易形成一种跟视频中类似的思维定式，视频里不规范、做的不好的地方很难察觉，自己在潜移默化中就跟着形成了同样的问题</strong>。这一次之所以选择看视频是因为实在是没有合适的学习资源，以前我一般通过看书来学习新东西比较多，但是这三大框架的更新速度实在过快，英文版图书没有查过，但是合适的中文书实在是没找到，基本都是很久远年代的版本，虽然网上说大体架构差不多，但我还是觉得这样会遇到太多问题。于是最终选择了前两年发布的一套视频教程来作为入门学习。</p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>在看视频的同时，我一边跟着视频写一些小测试，一边策划着用新学的框架写点什么。在把视频看完之后，便迫不及待的开始用它们来做一个当前的网站后台任务。看视频的时候觉得好像是这么回事，但是真正自己写的时候就完全不是那么回事了，各种问题，各种冗余，各种不爽，哎呀好气啊，怎么会这样呢？？？</p>
-<p>心平气和真的很重要，当我终于静下心来的时候，已经浪费了很多时间了，我才意识到，学习得有一个过程，不能一蹴而就。我也想过一上来就拿新学的东西做复杂的项目是不是有点不妥，但是我习惯于在实践中学习，一些很枯燥的东西，实践一下就能心中有数，所以我并没有放弃，那就只能一点一点的排查错误，<strong>最终找到了我已开始忽略但是十分十分重要的东西，那就是官方文档。</strong>为什么一开始不从官方文档看起？一方面是因为我英文不好，看着很吃力，但更重要的是我对这几个框架一点都不熟悉，甚至都不知道它们是用来干嘛的，这种情况下，看官方文档只会一头雾水。当我从视频中了解了它们的基本知识和架构了之后，官方文档就显得十分重要了。<strong>一个框架往往是十分庞大的，选择其中的一小部分便可以完成任务，所以跟着别人的脚步只能学到他当时用到的东西</strong>，而且框架更新也可能很快，这个时候<strong>看官方文档能对框架的一些特性进行比较全面的了解</strong>，不用每个特性都去实践，但是看过之后心中会有数，很多时候茫然不是不知道该怎么做，而是不知道能做什么。</p>
-<h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><p>在实践中遇到了很多问题，很多问题当时解决之后不长的一段时间就忘了，想重新去看的时候又不知道在什么地方了，才促使我写点东西来记录一下。当然这篇文章只是一个引子，具体内容还得慢慢写。</p>
+        <h2 id="Adapter中的onCreateViewHolder和onBindViewHolder"><a href="#Adapter中的onCreateViewHolder和onBindViewHolder" class="headerlink" title="Adapter中的onCreateViewHolder和onBindViewHolder"></a>Adapter中的onCreateViewHolder和onBindViewHolder</h2><p>在实现Adapter的时候，至少需要重写三个方法：getItemCount、onCreateViewHolder和onBindViewHolder，getItemCount一般是返回数据表的长度，比较简单，但是onCreateViewHolder和onBindViewHolder中遇到的坑比较多。</p>
+<h3 id="ViewHolder-onCreateViewHolder-ViewGroup-parent-int-viewType"><a href="#ViewHolder-onCreateViewHolder-ViewGroup-parent-int-viewType" class="headerlink" title="ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)"></a>ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)</h3><p>这个方法中会构造两个东西，一个叫View，很熟悉，另一个叫ViewHolder，虽然不那么熟悉，但是顾名思义ViewHolder就是用来装View的容器。可以把View中的一些控件提取出来放到ViewHolder中存起来，避免每次都findViewById，也可以把一些与View相关的临时变量放在里面，最重要的一点就是<strong>ViewHolder与View永久绑定</strong>，所以把View对象的引用存在ViewHolder中可以随时从ViewHolder中获取对应的View来操作视图。Javadoc是这样写的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Called when RecyclerView needs a new ViewHolder of the given type to represent</span><br><span class="line">an item.</span><br><span class="line"></span><br><span class="line">当RecyclerView需要一个对应类型的新的ViewHolder时会调用这个方法。</span><br><span class="line"></span><br><span class="line">This new ViewHolder should be constructed with a new View that can represent the</span><br><span class="line">items of the given type. You can either create a new View manually or inflate it</span><br><span class="line">from an XML layout file.</span><br><span class="line"></span><br><span class="line">你应当用一个对应类型的view来初始化一个ViewHolder，你可以自己构建这个view，也可以通过XML</span><br><span class="line">布局文件中构建。</span><br><span class="line"></span><br><span class="line">The new ViewHolder will be used to display items of the adapter using</span><br><span class="line">onBindViewHolder(ViewHolder, int, List). Since it will be re-used to display</span><br><span class="line">different items in the data set, it is a good idea to cache references to sub</span><br><span class="line">views of the View to avoid unnecessary View.findViewById(int) calls.</span><br><span class="line"></span><br><span class="line">这个新的ViewHolder将会在onBindViewHolder中绑定数据并显示在屏幕上。因为它会在更换数据的</span><br><span class="line">时候重复利用，所以在ViewHolder中保存子视图的引用来减少findViewById的调用是个不错的做法。</span><br></pre></td></tr></table></figure></p>
+<p>这里有个坑，<strong>这里创建的ViewHolder和与之对应的View永久绑定，但是它们跟数据只是临时绑定！</strong><br>什么意思呢，绝对不可以把数据放在ViewHolder里面，因为ViewHolder和Data的关系会变。举个例子，ViewHolder相当于抽屉，在抽屉里放东西（Data），一个抽屉里面的东西可以是你有的任何一件，东西的数量可以远大于抽屉数量，因为多的可以不放在抽屉里，但是ViewHolder的数量就那么多，它不会随着东西的增多而变多。</p>
+<h3 id="void-onBindViewHolder-ViewHolder-holder-int-position"><a href="#void-onBindViewHolder-ViewHolder-holder-int-position" class="headerlink" title="void onBindViewHolder(ViewHolder holder, int position)"></a>void onBindViewHolder(ViewHolder holder, int position)</h3><p>这个方法在数据与View-ViewHolder绑定的时候被调用的，看Javadoc：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Called by RecyclerView to display the data at the specified position. This method should</span><br><span class="line">update the contents of the ViewHolder.itemView to reflect the item at the given position.</span><br><span class="line"></span><br><span class="line">RecyclerView在特定位置显示数据的时候会调用这个方法，这个方法应当根据对应位置的数据来更新ViewHolder</span><br><span class="line">中对应的View视图。</span><br><span class="line"></span><br><span class="line">Note that unlike ListView, RecyclerView will not call this method again if the position </span><br><span class="line">of the item changes in the data set unless the item itself is invalidated or the new</span><br><span class="line">position cannot be determined. For this reason, you should only use the position parameter</span><br><span class="line">while acquiring the related data item inside this method and should not keep a copy of it.</span><br><span class="line">If you need the position of an item later on (e.g. in a click listener), use</span><br><span class="line">ViewHolder.getAdapterPosition() which will have the updated adapter position.</span><br><span class="line"></span><br><span class="line">注意它将不同于ListView，在完成绑定之后，当对应位置的数据被修改之后，这个方法不会被重新调用，除非</span><br><span class="line">item本身已经失效或者新的位置无法确定。（在数据改变时，开发者应当主动地调用notify*系列方法通知刷新</span><br><span class="line">视图，之后RecyclerView会重新调用这个方法重新绑定视图）。因为这个原因，你应该用position参数从</span><br><span class="line">DataList中获取数据而不能把数据存在ViewHolder里面。如果在之后需要获取position，可以用</span><br><span class="line">ViewHolder.getAdapterPosition()来实时获取当时绑定的数据position。</span><br><span class="line"></span><br><span class="line">Override onBindViewHolder(ViewHolder, int, List) instead if Adapter can handle efficient</span><br><span class="line">partial bind.</span><br></pre></td></tr></table></figure></p>
+<h2 id="多种Item类型的应用"><a href="#多种Item类型的应用" class="headerlink" title="多种Item类型的应用"></a>多种Item类型的应用</h2><p>待更新…</p>
 
       
     </div>
@@ -456,16 +429,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/SSM/" rel="tag"># SSM</a>
-          
-            <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
-          
-        </div>
-      
 
       
       
@@ -475,14 +438,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/25/树莓派的那些事/" rel="next" title="树莓派的那些事">
+                <i class="fa fa-chevron-left"></i> 树莓派的那些事
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/21/SpringMVC学习心得/" rel="prev" title="SpringMVC学习心得">
-                SpringMVC学习心得 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/01/Ubuntu16-04交叉编译OpenWrt版本scutclient/" rel="prev" title="Ubuntu16.04交叉编译OpenWrt版本scutclient">
+                Ubuntu16.04交叉编译OpenWrt版本scutclient <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -657,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">2.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录"><span class="nav-number">4.</span> <span class="nav-text">记录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter中的onCreateViewHolder和onBindViewHolder"><span class="nav-number">1.</span> <span class="nav-text">Adapter中的onCreateViewHolder和onBindViewHolder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewHolder-onCreateViewHolder-ViewGroup-parent-int-viewType"><span class="nav-number">1.1.</span> <span class="nav-text">ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#void-onBindViewHolder-ViewHolder-holder-int-position"><span class="nav-number">1.2.</span> <span class="nav-text">void onBindViewHolder(ViewHolder holder, int position)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多种Item类型的应用"><span class="nav-number">2.</span> <span class="nav-text">多种Item类型的应用</span></a></li></ol></div>
             
 
           </div>
