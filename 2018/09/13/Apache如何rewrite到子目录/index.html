@@ -99,23 +99,25 @@
 
 
 
-  <meta name="description" content="走自己的路，我无所谓">
-<meta property="og:type" content="website">
-<meta property="og:title" content="梦的天空之城">
-<meta property="og:url" content="https://hexo.xinsane.com/tags/树莓派/index.html">
+  <meta name="description" content="今天遇到一个非常紧急的问题，看起来也很常见，就是网站的一个子模块不是直接提供服务的，而是在public子目录下提供网页，然而不能把public带进URL里面，就是说我的URL应该是这样的/submodule/index.html，文件地址应该是这样的submodule/public/index.html。 然而网站结构前期已经定好，不能直接把public子目录配置为网站的根目录（这个模块本身就在网">
+<meta name="keywords" content="Apache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache如何rewrite到子目录">
+<meta property="og:url" content="https://hexo.xinsane.com/2018/09/13/Apache如何rewrite到子目录/index.html">
 <meta property="og:site_name" content="梦的天空之城">
-<meta property="og:description" content="走自己的路，我无所谓">
+<meta property="og:description" content="今天遇到一个非常紧急的问题，看起来也很常见，就是网站的一个子模块不是直接提供服务的，而是在public子目录下提供网页，然而不能把public带进URL里面，就是说我的URL应该是这样的/submodule/index.html，文件地址应该是这样的submodule/public/index.html。 然而网站结构前期已经定好，不能直接把public子目录配置为网站的根目录（这个模块本身就在网">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-13T08:39:15.583Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦的天空之城">
-<meta name="twitter:description" content="走自己的路，我无所谓">
+<meta name="twitter:title" content="Apache如何rewrite到子目录">
+<meta name="twitter:description" content="今天遇到一个非常紧急的问题，看起来也很常见，就是网站的一个子模块不是直接提供服务的，而是在public子目录下提供网页，然而不能把public带进URL里面，就是说我的URL应该是这样的/submodule/index.html，文件地址应该是这样的submodule/public/index.html。 然而网站结构前期已经定好，不能直接把public子目录配置为网站的根目录（这个模块本身就在网">
 
 
 
 
 
 
-  <link rel="canonical" href="https://hexo.xinsane.com/tags/树莓派/"/>
+  <link rel="canonical" href="https://hexo.xinsane.com/2018/09/13/Apache如何rewrite到子目录/"/>
 
 
 
@@ -125,7 +127,7 @@
   };
 </script>
 
-  <title>标签: 树莓派 | 梦的天空之城</title>
+  <title>Apache如何rewrite到子目录 | 梦的天空之城</title>
   
 
 
@@ -172,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -312,58 +314,195 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>树莓派<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hexo.xinsane.com/2018/09/13/Apache如何rewrite到子目录/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xinsane">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦的天空之城">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/04/25/树莓派的那些事/" itemprop="url">
-              
-                <span itemprop="name">树莓派的那些事</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Apache如何rewrite到子目录</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-25T17:28:37+08:00"
-              content="2018-04-25" >
-          04-25
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T16:25:39+08:00">2018-09-13</time>
+            
 
-    </header>
-  </article>
+            
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Apache/" itemprop="url" rel="index"><span itemprop="name">Apache</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/13/Apache如何rewrite到子目录/" class="leancloud_visitors" data-flag-title="Apache如何rewrite到子目录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天遇到一个非常紧急的问题，看起来也很常见，就是网站的一个子模块不是直接提供服务的，而是在public子目录下提供网页，然而不能把public带进URL里面，就是说我的URL应该是这样的<code>/submodule/index.html</code>，文件地址应该是这样的<code>submodule/public/index.html</code>。</p>
+<p>然而网站结构前期已经定好，不能直接把public子目录配置为网站的根目录（这个模块本身就在网站根目录的子目录下面），所以需要在这个模块的目录下配置重写规则rewrite到public子目录。于是乎，我想当然的配置了如下.htaccess：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule mod_rewrite.c&gt;</span><br><span class="line">  Options +FollowSymlinks -Multiviews</span><br><span class="line">  RewriteEngine On</span><br><span class="line"></span><br><span class="line">  RewriteRule ^(.*)$ public/$1</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+<p>然而Apache却报了500错误，查日志，Rewrite次数过多。什么意思呢？就是在第一次进入子模块目录时，加上了一个public之后，会从头再来一次，再一次进入这个目录，继续重写，无限循环，就爆炸了。怎么办？实测在Rule后面加L标记是无效的。</p>
+<p>Google搜索：Apache如何rewrite到子目录，无果。我就纳闷了，这个需求应该很常见吧，怎么就搜不到呢？再搜英文，依然无果。难道是我的打开方式不对？</p>
+<p>折腾了很久，最后终于发现一个神器（所谓神奇就是不知道为什么就可以了）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule mod_rewrite.c&gt;</span><br><span class="line">  Options +FollowSymlinks -Multiviews</span><br><span class="line">  RewriteEngine On</span><br><span class="line"></span><br><span class="line">  RewriteRule ^public(.*)$ - [L]</span><br><span class="line">  RewriteRule ^(.*)$ public/$1</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+<p>两条Rule依次执行，当发现当前URL已经有了public，直接中断查询，于是就不会溢出了（中间的-意思是只匹配不替换），大概可能是这样？最后我试了一下，子目录再子目录也是可以的，只要再复制一份.htaccess到子目录就行了。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Apache/" rel="tag"># Apache</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/01/Ubuntu16-04交叉编译OpenWrt版本scutclient/" rel="next" title="Ubuntu16.04交叉编译OpenWrt版本scutclient">
+                <i class="fa fa-chevron-left"></i> Ubuntu16.04交叉编译OpenWrt版本scutclient
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -621,6 +760,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
 
   
 
