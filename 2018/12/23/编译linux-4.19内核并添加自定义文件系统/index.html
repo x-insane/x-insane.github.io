@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="实验目的 设计一个类似 ext2 的自定义文件系统 myext2 添加自定义文件系统到 linux 内核中 测试自定义文件系统  实验过程本次实验使用 linux-4.19 内核版本，基于ext2文件系统，除了文件系统的magic number不同之外基本没有修改，只是为了了解和测试基本操作。 准备编译环境1sudo apt install git fakeroot build-essential">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译linux-4.19内核并添加自定义文件系统">
+<meta property="og:url" content="https://hexo.xinsane.com/2018/12/23/编译linux-4.19内核并添加自定义文件系统/index.html">
+<meta property="og:site_name" content="梦的天空之城">
+<meta property="og:description" content="实验目的 设计一个类似 ext2 的自定义文件系统 myext2 添加自定义文件系统到 linux 内核中 测试自定义文件系统  实验过程本次实验使用 linux-4.19 内核版本，基于ext2文件系统，除了文件系统的magic number不同之外基本没有修改，只是为了了解和测试基本操作。 准备编译环境1sudo apt install git fakeroot build-essential">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-23T13:48:13.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编译linux-4.19内核并添加自定义文件系统">
+<meta name="twitter:description" content="实验目的 设计一个类似 ext2 的自定义文件系统 myext2 添加自定义文件系统到 linux 内核中 测试自定义文件系统  实验过程本次实验使用 linux-4.19 内核版本，基于ext2文件系统，除了文件系统的magic number不同之外基本没有修改，只是为了了解和测试基本操作。 准备编译环境1sudo apt install git fakeroot build-essential">
+
+
+
+
+
+
+  <link rel="canonical" href="https://hexo.xinsane.com/2018/12/23/编译linux-4.19内核并添加自定义文件系统/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>编译linux-4.19内核并添加自定义文件系统 | 梦的天空之城</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">梦的天空之城</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hexo.xinsane.com/2018/12/23/编译linux-4.19内核并添加自定义文件系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xinsane">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦的天空之城">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">编译linux-4.19内核并添加自定义文件系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T18:31:35+08:00">2018-12-23</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/23/编译linux-4.19内核并添加自定义文件系统/" class="leancloud_visitors" data-flag-title="编译linux-4.19内核并添加自定义文件系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
+<li>设计一个类似 ext2 的自定义文件系统 myext2</li>
+<li>添加自定义文件系统到 linux 内核中</li>
+<li>测试自定义文件系统</li>
+</ul>
+<h2 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h2><p>本次实验使用 <a href="https://github.com/torvalds/linux/tree/v4.19" target="_blank" rel="noopener">linux-4.19</a> 内核版本，基于<code>ext2</code>文件系统，除了文件系统的<code>magic number</code>不同之外基本没有修改，只是为了了解和测试基本操作。</p>
+<h3 id="准备编译环境"><a href="#准备编译环境" class="headerlink" title="准备编译环境"></a>准备编译环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison</span><br></pre></td></tr></table></figure>
+<h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><p>可以从 <a href="https://github.com/torvalds/linux/releases" target="_blank" rel="noopener">Github</a> 上下载源码，这里我选取了当前的最新稳定版 <a href="https://github.com/torvalds/linux/releases/tag/v4.19" target="_blank" rel="noopener">v4.19</a> 作为测试版本。下载后解压到工作目录，源码就准备完毕了。</p>
+<p>注：由于该项目的<code>commit</code>特别多，不建议以<code>git clone</code>的方式获取代码，因为这会花费相当多的时间。</p>
+<h3 id="修改代码添加文件系统"><a href="#修改代码添加文件系统" class="headerlink" title="修改代码添加文件系统"></a>修改代码添加文件系统</h3><h4 id="fs-myext2目录的修改"><a href="#fs-myext2目录的修改" class="headerlink" title="fs/myext2目录的修改"></a>fs/myext2目录的修改</h4><p>以<code>ext2</code>文件系统为蓝本，修改成自定义的<code>myext2</code>文件系统，基本修改如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制ext2文件系统到myext2作为自定义文件系统的蓝本</span></span><br><span class="line">cp fs/ext2 fs/myext2</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> fs/myext2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换文件名（大小写都需要替换）</span></span><br><span class="line">rename <span class="string">"s/ext2/myext2/"</span> *</span><br><span class="line">rename <span class="string">"s/EXT2/MYEXT2/"</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换文件内容（大小写都需要替换）</span></span><br><span class="line">sed -i <span class="string">"s/ext2/myext2/g"</span> `grep ext2 -rl ./`</span><br><span class="line">sed -i <span class="string">"s/EXT2/MYEXT2/g"</span> `grep EXT2 -rl ./`</span><br></pre></td></tr></table></figure></p>
+<p>需要特别注意，现在的myext2文件系统中是没有定义<code>myext2_set_bit_atomic</code>和<code>myext2_clear_bit_atomic</code>这两个函数的，参照ext4的做法，简单的定义一个预编译宏即可。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file: fs/myext2/myext2.h</span></span><br><span class="line">line <span class="number">20</span>: <span class="meta">#<span class="meta-keyword">define</span> myext2_set_bit_atomic        ext2_set_bit_atomic</span></span><br><span class="line">line <span class="number">21</span>: <span class="meta">#<span class="meta-keyword">define</span> myext2_clear_bit_atomic      ext2_clear_bit_atomic</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="fs目录的修改"><a href="#fs目录的修改" class="headerlink" title="fs目录的修改"></a>fs目录的修改</h4><p>除了对myext2目录文件的修改，还需要对<code>fs/Kconfig</code>和<code>fs/Makefile</code>作相应的修改，修改的基本原则是，只要出现了<code>ext2</code>的配置，就复制一份到<code>myext2</code>的配置（大写的<code>EXT2</code>也是如此）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以像这样查找需要处理的内容，也可以直接打开文件查找，需要修改的内容并不多</span></span><br><span class="line">cat fs/Kconfig | grep -ni ext2</span><br><span class="line">cat fs/Makefile | grep -ni ext2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改后的内容部分如下所示</span></span><br><span class="line"><span class="comment"># Kconfig</span></span><br><span class="line"><span class="comment"># 引入子目录下的Kconfig</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"fs/ext2/Kconfig"</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"fs/myext2/Kconfig"</span></span><br><span class="line"></span><br><span class="line">config FS_MBCACHE</span><br><span class="line"><span class="comment"># Meta block cache for Extended Attributes (ext2/ext3/ext4)</span></span><br><span class="line"><span class="comment"># 这一段代码用于指定下一步配置中FS_MBCACHE的默认值</span></span><br><span class="line">        tristate</span><br><span class="line">        default y <span class="keyword">if</span> EXT2_FS=y &amp;&amp; EXT2_FS_XATTR</span><br><span class="line">        default y <span class="keyword">if</span> MYEXT2_FS=y &amp;&amp; MYEXT2_FS_XATTR</span><br><span class="line">        default y <span class="keyword">if</span> EXT4_FS=y</span><br><span class="line">        default m <span class="keyword">if</span> EXT2_FS_XATTR || EXT4_FS</span><br><span class="line">        default m <span class="keyword">if</span> MYEXT2_FS_XATTR || EXT4_FS</span><br><span class="line"></span><br><span class="line"><span class="comment"># Makefile</span></span><br><span class="line"><span class="comment"># 编译子目录</span></span><br><span class="line">obj-$(CONFIG_EXT2_FS)           += ext2/</span><br><span class="line">obj-$(CONFIG_MYEXT2_FS)         += myext2/</span><br></pre></td></tr></table></figure></p>
+<h4 id="include目录的修改"><a href="#include目录的修改" class="headerlink" title="include目录的修改"></a>include目录的修改</h4><p>添加<code>myext2_fs.h</code>包含头文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加myext2文件系统的基础支持，添加后需要像之前一样替换掉所有大小写的ext2</span></span><br><span class="line">cp include/linux/ext2_fs.h include/linux/myext2_fs.h</span><br><span class="line">sed -i <span class="string">"s/ext2/myext2/g"</span> include/linux/myext2_fs.h</span><br><span class="line">sed -i <span class="string">"s/EXT2/MYEXT2/g"</span> include/linux/myext2_fs.h</span><br></pre></td></tr></table></figure></p>
+<p>修改自定义文件系统的<code>magic number</code>：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file: include/uapi/linux/magic.h</span></span><br><span class="line">line <span class="number">22</span>: <span class="meta">#<span class="meta-keyword">define</span> EXT2_SUPER_MAGIC        0xEF53</span></span><br><span class="line">line <span class="number">23</span>: <span class="meta">#<span class="meta-keyword">define</span> MYEXT2_SUPER_MAGIC      0x6666</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="基本配置与编译安装"><a href="#基本配置与编译安装" class="headerlink" title="基本配置与编译安装"></a>基本配置与编译安装</h3><p>在这一步中，需要配置编译好的内核需要打包哪些内容和模块，在<code>menuconfig</code>中，带<code>*</code>号的表示打包到二进制内核文件中，带<code>M</code>标识的表示以模块的形式加载。</p>
+<p>在Kconfig文件中指定了一些默认值，即使全新配置也不需要从零开始。但是从当前系统拷贝一份配置再进行修改比全新配置更适合本机系统，相对全新配置不容易出错一点。在配置时应特别注意文件系统子配置项中是否配置了新增文件系统的模块。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拷贝当前系统内核配置到工作目录，也可以不执行这一步而进行配置</span></span><br><span class="line">cp /boot/config-$(uname -r) .config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 图形化配置</span></span><br><span class="line">make menuconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译内核和各模块</span></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装模块（默认安装位置为/lib/modules）</span></span><br><span class="line">make modules_install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装内核并更新grub（默认安装位置为/boot）</span></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启系统</span></span><br><span class="line">sudo reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核是否更新成功</span></span><br><span class="line">uname -r <span class="comment"># 查看内核版本号</span></span><br><span class="line">uname -a <span class="comment"># 查看内核完整版本信息</span></span><br></pre></td></tr></table></figure>
+<p>在<code>make menuconfig</code>完成之后，编译时出现了如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No rule to make target &apos;debian/certs/benh@debian.org.cert.pem&apos;, needed by &apos;certs/x509_certificate_list&apos;.</span><br></pre></td></tr></table></figure></p>
+<p>这里投机取巧直接注释掉<code>CONFIG_SYSTEM_TRUSTED_KEYS</code>就可以成功编译了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// file: .config</span><br><span class="line">line 8205: # CONFIG_SYSTEM_TRUSTED_KEYS=&quot;&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="设计格式化工具"><a href="#设计格式化工具" class="headerlink" title="设计格式化工具"></a>设计格式化工具</h3><p>内核安装成功后，并不能直接使用<code>mkfs -t myext2 /dev/{target}</code>，因为编译的内核中并不包含格式化工具<code>mkfs.myext2</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs: failed to execute mkfs.myext2: No such file or directory</span><br></pre></td></tr></table></figure></p>
+<p>其实，myext2文件系统与ext2在物理布局上除了magic number完全一致，所以替代方案就是使用<code>mkfs.ext2</code>代替然后修改<code>magic number</code>。修改<code>magic number</code>可以直接使用<code>hexedit</code>搜索<code>53EF</code>（<code>0xEF53</code>的存储方式是低字节在前）修改成<code>6666</code>。为了方便修改，写了一段简单的C语言程序：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(argc &lt; <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"usage: %s %s\n"</span>, argv[<span class="number">0</span>], <span class="string">"filename"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	FILE* file = fopen(argv[<span class="number">1</span>], <span class="string">"r+b"</span>);</span><br><span class="line">	<span class="keyword">if</span> (file == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"can not to open file: %s\n"</span>, argv[<span class="number">1</span>]);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	fseek(file, <span class="number">0x438</span>, SEEK_SET);</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> magic = <span class="number">0</span>;</span><br><span class="line">	fread(&amp;magic, <span class="number">2</span>, <span class="number">1</span>, file);</span><br><span class="line">	<span class="keyword">if</span> (<span class="number">0xef53</span> == magic)</span><br><span class="line">	&#123;</span><br><span class="line">		fseek(file, <span class="number">0x438</span>, SEEK_SET);</span><br><span class="line">		magic = <span class="number">0x6666</span>;</span><br><span class="line">		fwrite(&amp;magic, <span class="number">2</span>, <span class="number">1</span>, file);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"magic number changed 0x%x =&gt; 0x%x\n"</span>, <span class="number">0xef53</span>, magic);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"magic number = 0x%x.\nnot a ext2 format. magic number not changed.\n"</span>, magic);</span><br><span class="line">	fclose(file);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="测试自定义文件系统"><a href="#测试自定义文件系统" class="headerlink" title="测试自定义文件系统"></a>测试自定义文件系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="keyword">if</span>=/dev/zero of=./vfs bs=1M count=1</span><br><span class="line">mkfs.ext2 ./vfs</span><br><span class="line">./chmn ./vfs</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">magic number changed 0xef53 =&gt; 0x6666</span><br></pre></td></tr></table></figure>
+<p>分别建立两个目录，同时挂载刚创建的虚拟文件系统，可以正常的读写文件，且对任意挂载目录进行修改都会反映到其他挂载目录，部分操作和输出如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~/workspace# mkdir vfs_mount</span><br><span class="line">root@kali:~/workspace# mkdir vfs_mount_clone</span><br><span class="line">root@kali:~/workspace# mount -t myext2 ./vfs ./vfs_mount -o loop</span><br><span class="line">root@kali:~/workspace# mount -t myext2 ./vfs ./vfs_mount_clone -o loop</span><br><span class="line">root@kali:~/workspace# ls vfs_mount</span><br><span class="line">lost+found</span><br><span class="line">root@kali:~/workspace# mkdir vfs_mount/test</span><br><span class="line">root@kali:~/workspace# echo 123 &gt; vfs_mount_clone/test.txt</span><br><span class="line">root@kali:~/workspace# ls vfs_mount</span><br><span class="line">lost+found  test  test.txt</span><br><span class="line">root@kali:~/workspace# cat vfs_mount/test.txt</span><br><span class="line">123</span><br><span class="line">root@kali:~/workspace# ls vfs_mount_clone</span><br><span class="line">lost+found  test  test.txt</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/13/Apache如何rewrite到子目录/" rel="next" title="Apache如何rewrite到子目录">
+                <i class="fa fa-chevron-left"></i> Apache如何rewrite到子目录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="xinsane" />
+            
+              <p class="site-author-name" itemprop="name">xinsane</p>
+              <p class="site-description motion-element" itemprop="description">走自己的路，我无所谓</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/x-insane" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yanxuliu1997@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验过程"><span class="nav-number">2.</span> <span class="nav-text">实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备编译环境"><span class="nav-number">2.1.</span> <span class="nav-text">准备编译环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载源码"><span class="nav-number">2.2.</span> <span class="nav-text">下载源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改代码添加文件系统"><span class="nav-number">2.3.</span> <span class="nav-text">修改代码添加文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fs-myext2目录的修改"><span class="nav-number">2.3.1.</span> <span class="nav-text">fs/myext2目录的修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fs目录的修改"><span class="nav-number">2.3.2.</span> <span class="nav-text">fs目录的修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include目录的修改"><span class="nav-number">2.3.3.</span> <span class="nav-text">include目录的修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本配置与编译安装"><span class="nav-number">2.4.</span> <span class="nav-text">基本配置与编译安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计格式化工具"><span class="nav-number">2.5.</span> <span class="nav-text">设计格式化工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试自定义文件系统"><span class="nav-number">2.6.</span> <span class="nav-text">测试自定义文件系统</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xinsane</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("P8rP2sSuQRlDoBjlxIV1Iyfo-gzGzoHsz", "xAUwdTiwAkOvVDzcQxaClXnq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
